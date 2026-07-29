@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="PRASA Trains">
   <link rel="manifest" href="data:application/json,{%22name%22:%22PRASA%20Train%20Times%22,%22short_name%22:%22PRASATrains%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22#13151c%22,%22theme_color%22:%22#2563eb%22}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root, [data-theme="light"] {
@@ -27,50 +27,82 @@
       --green-light: #f0fdf4;
       --green-mid: #bbf7d0;
       --green: #16a34a;
-      --radius: 12px;
-      --radius-sm: 8px;
+      --radius: 4px;
+      --radius-sm: 3px;
       --toggle-bg: #e2e5eb;
       --toggle-thumb: #ffffff;
-      --card-glow: rgba(37, 99, 235, 0.06);
+      --card-glow: rgba(37, 99, 235, 0.18);
     }
     [data-theme="dark"] {
-      --grey-bg: #13151c;
-      --grey-border: #252836;
-      --grey-text: #8b93a8;
-      --text: #edf0f7;
-      --white: #1c1f2e;
-      --blue-light: #1a2540;
-      --blue-mid: #1e3270;
-      --blue-dark: #3b82f6;
+      --grey-bg: #0c0906;
+      --grey-border: #4a3a1e;
+      --grey-text: #a89264;
+      --text: #ecdfba;
+      --white: #17130d;
+      --blue-light: #2a2210;
+      --blue-mid: #6b551f;
+      --blue-dark: #d4af37;
+      --blue: #d4af37;
       --amber-light: #241a08;
-      --green-light: #0b1f12;
-      --green-mid: #0f3320;
-      --toggle-bg: #2563eb;
-      --toggle-thumb: #ffffff;
-      --card-glow: rgba(37, 99, 235, 0.12);
+      --green-light: #200a0a;
+      --green-mid: #4a1414;
+      --green: #a31f22;
+      --toggle-bg: #d4af37;
+      --toggle-thumb: #17130d;
+      --card-glow: rgba(212, 175, 55, 0.15);
     }
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'EB Garamond', serif;
       background: var(--grey-bg);
       color: var(--text);
       min-height: 100vh;
       padding: 12px 12px 32px;
       transition: background 0.25s ease, color 0.25s ease;
     }
+    [data-theme="dark"] body {
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.03), transparent 40%),
+        repeating-linear-gradient(135deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px, transparent 2px, transparent 6px);
+    }
+    [data-theme="light"] body {
+      background-image:
+        radial-gradient(circle at 10% 0%, rgba(37,99,235,0.12), transparent 45%),
+        radial-gradient(circle at 95% 100%, rgba(37,99,235,0.10), transparent 40%),
+        linear-gradient(rgba(37,99,235,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,0.06) 1px, transparent 1px);
+      background-size: auto, auto, 26px 26px, 26px 26px;
+    }
+    [data-theme="light"] .card,
+    [data-theme="light"] .result-card,
+    [data-theme="light"] .trains-panel,
+    [data-theme="light"] .day-badge-wrap {
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-color: rgba(37,99,235,0.25);
+    }
+    [data-theme="light"] .find-btn {
+      box-shadow: 0 0 0 1px rgba(37,99,235,0.3), 0 4px 18px rgba(37,99,235,0.35);
+    }
     .shell { max-width: 420px; margin: 0 auto; }
     .header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding: 0 2px; }
     .header-icon {
-      width: 36px; height: 36px;
-      background: var(--blue);
-      border-radius: 10px;
+      width: 40px; height: 40px;
+      background: radial-gradient(circle at 35% 30%, var(--blue-mid), var(--blue-dark) 70%);
+      border-radius: 50%;
+      border: 2px solid var(--blue);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 3px 12px rgba(37, 99, 235, 0.35);
+      box-shadow: 0 3px 12px var(--card-glow);
     }
-    .header-icon svg { width: 20px; height: 20px; }
+    .header-icon svg { width: 22px; height: 22px; }
     .header-text { flex: 1; }
-    .header-text h1 { font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.2; }
-    .header-text p { font-size: 0.72rem; color: var(--grey-text); margin-top: 1px; }
+    .header-text h1 {
+      font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: var(--blue-dark);
+      line-height: 1.2; letter-spacing: 0.06em; text-transform: uppercase;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.25);
+    }
+    .header-text p { font-size: 0.72rem; color: var(--grey-text); margin-top: 2px; letter-spacing: 0.03em; }
     .theme-toggle {
       background: var(--toggle-bg); border: none; border-radius: 20px;
       width: 42px; height: 22px; cursor: pointer; position: relative;
@@ -95,16 +127,18 @@
     .day-badge-left { display: flex; align-items: center; gap: 8px; }
     .day-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
     .day-dot.weekend { background: var(--green); }
-    .day-badge-label { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+    .day-badge-label { font-family: 'Cinzel', serif; font-size: 0.76rem; font-weight: 600; color: var(--text); letter-spacing: 0.03em; }
     .day-badge-sub { font-size: 0.7rem; color: var(--grey-text); margin-top: 1px; }
     .day-change-btn {
-      font-size: 0.72rem; font-weight: 600; font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 600; font-family: 'Cinzel', serif;
       color: var(--blue); background: none; border: none; cursor: pointer; padding: 2px 0; white-space: nowrap; flex-shrink: 0;
+      text-transform: uppercase; letter-spacing: 0.04em;
     }
     .day-picker { display: none; gap: 4px; margin-bottom: 10px; }
     .day-picker.open { display: flex; }
     .day-pick-btn {
-      flex: 1; padding: 7px 4px; font-size: 0.74rem; font-weight: 600; font-family: 'DM Sans', sans-serif;
+      flex: 1; padding: 7px 4px; font-size: 0.72rem; font-weight: 600; font-family: 'Cinzel', serif;
+      text-transform: uppercase; letter-spacing: 0.03em;
       border: 1.5px solid var(--grey-border); border-radius: var(--radius-sm);
       background: var(--white); color: var(--grey-text); cursor: pointer; text-align: center;
     }
@@ -117,8 +151,8 @@
     }
     
     .card {
-      background: var(--white); border-radius: var(--radius); border: 1px solid var(--grey-border);
-      padding: 14px; margin-bottom: 10px; box-shadow: 0 2px 12px var(--card-glow);
+      background: var(--white); border-radius: var(--radius); border: 1.5px solid var(--grey-border);
+      padding: 14px; margin-bottom: 10px; box-shadow: 0 2px 12px var(--card-glow), inset 0 0 0 1px rgba(212,175,55,0.08);
       transition: background 0.25s ease, border-color 0.25s ease;
     }
     .field { position: relative; }
@@ -126,7 +160,7 @@
     
     /* 20% More Compact Modern Dropdown Design Architecture */
     .custom-select-trigger {
-      width: 100%; padding: 8px 10px; font-size: 0.85rem; font-family: 'DM Sans', sans-serif;
+      width: 100%; padding: 8px 10px; font-size: 0.9rem; font-family: 'EB Garamond', serif;
       border-radius: var(--radius-sm); border: 1.5px solid var(--grey-border); background: var(--grey-bg); color: var(--text);
       cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: border-color 0.15s;
     }
@@ -166,11 +200,12 @@
     .swap-btn:active { transform: rotate(180deg); background: var(--blue-mid); }
     
     .find-btn {
-      width: 100%; padding: 10px; background: var(--blue); color: white; font-family: 'DM Sans', sans-serif;
-      font-size: 0.88rem; font-weight: 600; border: none; border-radius: var(--radius-sm); cursor: pointer;
-      margin-top: 12px; box-shadow: 0 3px 10px rgba(37, 99, 235, 0.3);
+      width: 100%; padding: 11px; background: var(--blue); color: var(--white); font-family: 'Cinzel', serif;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      border: 1px solid var(--blue-dark); border-radius: var(--radius-sm); cursor: pointer;
+      margin-top: 12px; box-shadow: 0 3px 10px var(--card-glow);
     }
-    .find-btn.weekend { background: var(--green); box-shadow: 0 3px 10px rgba(22, 163, 74, 0.3); }
+    .find-btn.weekend { background: var(--green); border-color: var(--green); box-shadow: 0 3px 10px rgba(163, 31, 34, 0.3); }
     
     .result-card {
       background: var(--white); border-radius: var(--radius); border: 1px solid var(--grey-border);
@@ -179,9 +214,9 @@
     @keyframes slideUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
     .result-header { background: var(--blue-light); border-bottom: 1px solid var(--blue-mid); padding: 10px 14px; }
     .result-header.weekend { background: var(--green-light); border-bottom-color: var(--green-mid); }
-    .result-tag { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue); margin-bottom: 2px; }
+    .result-tag { font-family: 'Cinzel', serif; font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue-dark); margin-bottom: 2px; }
     .result-tag.weekend { color: var(--green); }
-    .result-countdown { font-family: 'DM Mono', monospace; font-size: 2rem; font-weight: 500; color: var(--blue); line-height: 1; }
+    .result-countdown { font-family: 'DM Mono', monospace; font-size: 2rem; font-weight: 500; color: var(--blue-dark); line-height: 1; }
     .result-countdown.weekend { color: var(--green); }
     .result-body { padding: 10px 14px; }
     .result-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--grey-border); }
@@ -201,7 +236,7 @@
       margin-bottom: 10px; overflow: hidden; box-shadow: 0 2px 12px var(--card-glow); animation: slideUp 0.18s ease-out;
     }
     .trains-panel-header { padding: 10px 14px; border-bottom: 1px solid var(--grey-border); display: flex; justify-content: space-between; align-items: center; }
-    .trains-panel-header span { font-size: 0.74rem; font-weight: 600; color: var(--grey-text); text-transform: uppercase; letter-spacing: 0.05em; }
+    .trains-panel-header span { font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600; color: var(--grey-text); text-transform: uppercase; letter-spacing: 0.07em; }
     .train-row { display: flex; align-items: center; padding: 8px 14px; border-bottom: 1px solid var(--grey-border); gap: 8px; cursor: pointer; }
     .train-row:last-child { border-bottom: none; }
     .train-row:hover { background: var(--grey-bg); }
@@ -218,21 +253,21 @@
     .train-times .arrow { color: var(--grey-border); font-size: 0.74rem; }
     .train-eta { font-size: 0.74rem; color: var(--grey-text); text-align: right; white-space: nowrap; }
     .train-row.selected .train-eta { color: var(--blue); font-weight: 600; }
-    .train-row.selected.weekend-row .train-eta { color: var(--green); }
+    .train-row.selected.weekend-row .train-eta { color: var(--green); font-weight: 600; }
     .train-row.past { opacity: 0.45; }
     .live-dot { display: inline-block; width: 6px; height: 6px; background: var(--green); border-radius: 50%; margin-right: 4px; vertical-align: middle; animation: pulse 2s ease-in-out infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
-    footer { text-align: center; font-size: 0.68rem; color: var(--grey-text); margin-top: 6px; opacity: 0.55; }
+    footer { text-align: center; font-size: 0.68rem; color: var(--grey-text); margin-top: 6px; opacity: 0.7; }
+    footer .credit { display: block; margin-top: 4px; font-family: 'Cinzel', serif; letter-spacing: 0.05em; color: var(--blue-dark); text-decoration: none; }
+    footer .credit:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 <div class="shell">
   <div class="header">
     <div class="header-icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="4" y="3" width="16" height="13" rx="2"/>
-        <path d="M4 13h16M8 13v4M16 13v4M6 17l-2 3M18 17l2 3"/>
-        <circle cx="9" cy="8" r="1" fill="white" stroke="none"/><circle cx="15" cy="8" r="1" fill="white" stroke="none"/>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="#f4ead2" stroke="none">
+        <path d="M12 2.5c.6 1.4 1 2.6 1.2 3.6 2.4-1 4.6-1.5 6.8-1.4-1.6 1.4-3 2.8-4.2 4.4 2.2.4 4.2 1.3 6 2.7-2.4-.2-4.5.1-6.4.9 1 1.9 1.6 3.9 1.8 6-1.6-1.5-3-2.7-4.2-3.5-1.2.8-2.6 2-4.2 3.5.2-2.1.8-4.1 1.8-6-1.9-.8-4-1.1-6.4-.9 1.8-1.4 3.8-2.3 6-2.7-1.2-1.6-2.6-3-4.2-4.4 2.2-.1 4.4.4 6.8 1.4.2-1 .6-2.2 1.2-3.6z"/>
       </svg>
     </div>
     <div class="header-text">
@@ -288,7 +323,10 @@
   <div id="resultArea"></div>
   <div id="trainsPanel"></div>
 
-  <footer>Offline ready &nbsp;&middot;&nbsp; Add to Home Screen to install</footer>
+  <footer>
+    Offline ready &nbsp;&middot;&nbsp; Add to Home Screen to install
+    <a class="credit" href="https://tshoaele.wordpress.com" target="_blank" rel="noopener">A Vuja Tsoaela Build</a>
+  </footer>
 </div>
 
 <script>
@@ -385,36 +423,40 @@ const SCHEDULE = {
         trains: [
           {no:"9301",t:["04:20","04:23","04:28","04:33","04:37","04:39","04:41","04:43","04:46","04:51","04:53","04:57","05:00","05:02","05:05","05:10"]},
           {no:"9303",t:["05:00","05:03","05:08","05:13","05:17","05:19","05:21","05:23","05:26","05:31","05:33","05:37","05:40","05:42","05:45","05:50"]},
-          {no:"9305",t:["05:30","05:33","05:38","05:43","05:47","05:49","05:51","05:53","05:56","06:01","06:03","06:07","06:10","06:12","06:15","06:20"]},
-          {no:"9307",t:["06:15","06:18","06:23","06:28","06:32","06:34","06:36","06:38","06:41","06:46","06:48","06:52","06:55","06:57","07:00","07:05"]},
-          {no:"9309",t:["07:30","07:33","07:38","07:43","07:47","07:49","07:51","07:53","07:56","08:01","08:03","08:07","08:10","08:12","08:15","08:20"]},
-          {no:"9311",t:["08:50","08:53","08:58","09:03","09:07","09:09","09:11","09:13","09:16","09:21","09:23","09:27","09:30","09:32","09:35","09:40"]},
-          {no:"9313",t:["09:50","09:53","09:58","10:03","10:07","10:09","10:11","10:13","10:16","10:21","10:23","10:27","10:30","10:32","10:35","10:40"]},
-          {no:"9315",t:["10:50","10:53","10:58","11:03","11:07","11:09","11:11","11:13","11:16","11:21","11:23","11:27","11:30","11:32","11:35","11:40"]},
-          {no:"9317",t:["11:50","11:53","11:58","12:03","12:07","12:09","12:11","12:13","12:16","12:21","12:23","12:27","12:30","12:32","12:35","12:40"]},
-          {no:"9321",t:["12:50","12:53","12:58","13:03","13:07","13:09","13:11","13:13","13:16","13:21","13:23","13:27","13:30","13:32","13:35","13:40"]},
-          {no:"9323",t:["13:50","13:53","13:58","14:03","14:07","14:09","14:11","14:13","14:16","14:21","14:23","14:27","14:30","14:32","14:35","14:40"]},
-          {no:"9325",t:["14:50","14:53","14:58","14:03","15:07","15:09","15:11","15:13","15:16","15:21","15:23","15:27","15:30","15:32","15:35","15:40"]},
-          {no:"9327",t:["16:10","16:13","16:18","16:23","16:27","16:29","16:31","16:33","16:36","16:41","16:43","16:47","16:50","16:52","16:55","17:00"]},
-          {no:"9329",t:["18:00","18:03","18:08","18:13","18:17","18:19","18:21","18:23","18:26","18:31","18:33","18:37","18:40","18:42","18:45","18:50"]}
+          {no:"9305",t:["05:20","05:23","05:28","05:33","05:37","05:39","05:41","05:43","05:46","05:51","05:53","05:57","06:00","06:02","06:05","06:10"]},
+          {no:"9307",t:["05:50","05:53","05:58","06:03","06:07","06:09","06:11","06:13","06:16","06:21","06:23","06:27","06:30","06:32","06:35","06:38"]},
+          {no:"9309",t:["06:15","06:18","06:23","06:28","06:32","06:34","06:36","06:38","06:41","06:46","06:48","06:52","06:55","06:57","07:00","07:05"]},
+          {no:"9311",t:["07:15","07:18","07:23","07:28","07:32","07:34","07:36","07:38","07:41","07:46","07:48","07:52","07:55","07:57","08:00","08:05"]},
+          {no:"9313",t:["07:50","07:53","07:58","08:03","08:07","08:09","08:11","08:13","08:16","08:21","08:23","08:27","08:30","08:32","08:35","08:40"]},
+          {no:"9315",t:["09:15","09:18","09:23","09:28","09:32","09:34","09:36","09:38","09:41","09:46","09:48","09:52","09:55","09:57","10:00","10:05"]},
+          {no:"9317",t:["10:15","10:18","10:23","10:28","10:32","10:34","10:36","10:38","10:41","10:46","10:48","10:52","10:55","10:57","11:00","11:05"]},
+          {no:"9319",t:["11:15","11:18","11:23","11:28","11:32","11:34","11:36","11:38","11:41","11:46","11:48","11:52","11:55","11:57","12:00","12:05"]},
+          {no:"9321",t:["12:15","12:18","12:23","12:28","12:32","12:34","12:36","12:38","12:41","12:46","12:48","12:52","12:55","12:57","13:00","13:05"]},
+          {no:"9323",t:["13:15","13:18","13:23","13:28","13:32","13:34","13:36","13:38","13:41","13:46","13:48","13:52","13:55","13:57","14:00","14:05"]},
+          {no:"9325",t:["14:15","14:18","14:23","14:28","14:32","14:34","14:36","14:38","14:41","14:46","14:48","14:52","14:55","14:57","15:00","15:05"]},
+          {no:"9327",t:["15:15","15:18","15:23","15:28","15:32","15:34","15:36","15:38","15:41","15:46","15:48","15:52","15:55","15:57","16:00","16:05"]},
+          {no:"9329",t:["16:15","16:18","16:23","16:28","16:32","16:34","16:36","16:38","16:41","16:46","16:48","16:52","16:55","16:57","17:00","17:05"]},
+          {no:"9331",t:["18:35","18:38","18:43","18:48","18:52","18:54","18:56","18:58","19:01","19:06","19:08","19:12","19:15","19:17","19:20","19:25"]}
         ]
       },
       outbound: {
         stations: ["Johannesburg","Braamfontein","Mayfair","Grosvenor","Langlaagte","Croesus","Longdale","New Canada","Mzimhlope","Phomolong","Phefen","Dube","Ikwezi","Inhlazane","Merafe","Naledi"],
         trains: [
-          {no:"9306",t:["06:30","06:34","06:38","06:40","06:43","06:46","06:48","06:53","06:56","06:59","07:01","07:03","07:07","07:11","07:16","07:20"]},
-          {no:"9308",t:["07:30","07:34","07:38","07:40","07:43","07:46","07:48","07:53","07:56","07:59","08:01","08:03","08:07","08:11","08:16","08:20"]},
-          {no:"9310",t:["08:50","08:54","08:58","09:00","09:03","09:06","09:08","09:13","09:16","09:19","09:21","09:23","09:27","09:31","09:36","09:40"]},
-          {no:"9312",t:["09:50","09:54","09:58","10:00","10:03","10:06","10:08","10:13","10:16","10:19","10:21","10:23","10:27","10:31","10:36","10:40"]},
-          {no:"9314",t:["10:50","10:54","10:58","11:00","11:03","11:06","11:08","11:13","11:16","11:19","11:21","11:23","11:27","11:31","11:36","11:40"]},
-          {no:"9316",t:["11:50","11:54","11:58","12:00","12:03","12:06","12:08","12:13","12:16","12:19","12:21","12:23","12:27","12:31","12:36","12:40"]},
-          {no:"9318",t:["12:50","12:54","12:58","13:00","13:03","13:06","13:08","13:13","13:16","13:19","13:21","13:23","13:27","13:31","13:36","13:40"]},
-          {no:"9322",t:["13:50","13:54","13:58","14:00","14:03","14:06","14:08","14:13","14:16","14:19","14:21","14:23","14:27","14:31","14:36","14:40"]},
-          {no:"9324",t:["15:10","15:14","15:18","15:20","15:23","15:26","15:28","15:33","15:36","15:39","15:41","15:43","15:47","15:51","15:56","16:00"]},
-          {no:"9326",t:["16:30","16:34","16:38","16:40","16:43","16:46","16:48","16:53","16:56","16:59","17:01","17:03","17:07","17:11","17:16","17:20"]},
-          {no:"9328",t:["17:30","17:34","17:38","17:40","17:43","17:46","17:48","17:53","17:56","17:59","18:01","18:03","18:07","18:11","18:16","18:20"]},
-          {no:"9332",t:["18:30","18:34","18:38","18:40","18:43","18:46","18:48","18:53","18:56","18:59","19:01","19:03","19:07","19:11","19:16","19:20"]},
-          {no:"9334",t:["19:20","19:24","19:28","19:30","19:33","19:36","19:38","19:43","19:46","19:49","19:51","19:53","19:57","20:01","20:06","20:10"]}
+          {no:"9300",t:["06:50","06:54","06:58","07:00","07:03","07:06","07:08","07:13","07:16","07:19","07:21","07:23","07:27","07:31","07:36","07:40"]},
+          {no:"9302",t:["08:15","08:19","08:23","08:25","08:28","08:31","08:33","08:38","08:41","08:44","08:46","08:48","08:52","08:56","09:01","09:05"]},
+          {no:"9304",t:["08:50","08:54","08:58","09:00","09:03","09:06","09:08","09:13","09:16","09:19","09:21","09:23","09:27","09:31","09:36","09:40"]},
+          {no:"9306",t:["10:15","10:19","10:23","10:25","10:28","10:31","10:33","10:38","10:41","10:44","10:46","10:48","10:52","10:56","11:01","11:05"]},
+          {no:"9308",t:["11:15","11:19","11:23","11:25","11:28","11:31","11:33","11:38","11:41","11:44","11:46","11:48","11:52","11:56","12:01","12:05"]},
+          {no:"9310",t:["12:15","12:19","12:23","12:25","12:28","12:31","12:33","12:38","12:41","12:44","12:46","12:48","12:52","12:56","13:01","13:05"]},
+          {no:"9312",t:["13:15","13:19","13:23","13:25","13:28","13:31","13:33","13:38","13:41","13:44","13:46","13:48","13:52","13:56","14:01","14:05"]},
+          {no:"9314",t:["14:15","14:19","14:23","14:25","14:28","14:31","14:33","14:38","14:41","14:44","14:46","14:48","14:52","14:56","15:01","15:05"]},
+          {no:"9316",t:["15:15","15:19","15:23","15:25","15:28","15:31","15:33","15:38","15:41","15:44","15:46","15:48","15:52","15:56","16:01","16:05"]},
+          {no:"9318",t:["16:15","16:19","16:23","16:25","16:28","16:31","16:33","16:38","16:41","16:44","16:46","16:48","16:52","16:56","17:01","17:05"]},
+          {no:"9320",t:["17:05","17:09","17:13","17:15","17:18","17:21","17:23","17:28","17:31","17:34","17:36","17:38","17:42","17:46","17:51","17:55"]},
+          {no:"9322",t:["17:35","17:39","17:43","17:45","17:48","17:51","17:53","17:58","18:01","18:04","18:06","18:08","18:12","18:16","18:21","18:25"]},
+          {no:"9324",t:["18:00","18:04","18:08","18:10","18:13","18:16","18:18","18:23","18:26","18:29","18:31","18:33","18:37","18:41","18:46","18:50"]},
+          {no:"9326",t:["18:50","18:54","18:58","19:00","19:03","19:06","19:08","19:13","19:16","19:19","19:21","19:23","19:27","19:31","19:36","19:40"]},
+          {no:"9328",t:["19:35","19:39","19:43","19:45","19:48","19:51","19:53","19:58","20:01","20:04","20:06","20:08","20:12","20:16","20:21","20:25"]}
         ]
       }
     },
@@ -516,9 +558,7 @@ function setDayType(type) {
   }
   
   document.getElementById('headerSub').innerHTML = `<span class="live-dot"></span>Soweto lines &middot; ${type.charAt(0).toUpperCase() + type.slice(1)}s`;
-  if (selectedOrigin && selectedDest) {
-    handleFind();
-  }
+  clearResults();
 }
 
 /* Custom dropdown builder implementing explicit sequential constraints and memory layout maps */
@@ -549,7 +589,7 @@ function buildStationDropdowns() {
       document.querySelectorAll('#originDropdown .dropdown-option').forEach(n => n.classList.remove('selected'));
       optionO.classList.add('selected');
       document.getElementById('originField').classList.remove('open');
-      handleFind();
+      clearResults();
     });
     originDropdown.appendChild(optionO);
 
@@ -565,7 +605,7 @@ function buildStationDropdowns() {
       document.querySelectorAll('#destDropdown .dropdown-option').forEach(n => n.classList.remove('selected'));
       optionD.classList.add('selected');
       document.getElementById('destField').classList.remove('open');
-      handleFind();
+      clearResults();
     });
     destDropdown.appendChild(optionD);
   });
@@ -617,9 +657,12 @@ function handleSwap() {
     n.classList.toggle('selected', textNode === targetMatch);
   });
   
-  if (selectedOrigin && selectedDest) {
-    handleFind();
-  }
+  clearResults();
+}
+
+function clearResults() {
+  resultArea.innerHTML = '';
+  trainsPanelEl.innerHTML = '';
 }
 
 function timeToMin(tStr) {
@@ -755,8 +798,6 @@ function renderDirectRoute(orig, dest, route) {
       <div class="train-no">${t.no}</div>
       <div class="train-times">
         <span>${t.dep}</span>
-        <span class="arrow">&rarr;</span>
-        <span class="arr">${t.arr}</span>
       </div>
       <div class="train-eta">${etaLabel}</div>
     `;
@@ -851,8 +892,6 @@ function renderTransferRoute(orig, dest, transitPoint, r1, r2) {
       <div class="train-no" style="font-size:0.65rem">${o.t1}&rarr;${o.t2}</div>
       <div class="train-times">
         <span>${o.d1}</span>
-        <span class="arrow">&rarr;</span>
-        <span class="arr" style="color:var(--text);font-weight:600">${o.a2}</span>
       </div>
       <div class="train-eta">${etaLabel} <br><small style="font-size:0.65rem;color:var(--grey-text)">wait ${o.layover}m</small></div>
     `;
@@ -865,7 +904,6 @@ const initialType = autoDetectDay();
 setDayType(initialType);
 buildStationDropdowns();
 setupTriggerEvents();
-handleFind();
 </script>
 </body>
 </html>
