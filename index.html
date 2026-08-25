@@ -13,44 +13,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
     :root, [data-theme="light"] {
-      --blue: #2563eb;
-      --blue-light: #eff6ff;
-      --blue-mid: #bfdbfe;
-      --blue-dark: #1d4ed8;
-      --grey-bg: #f5f6f8;
-      --grey-border: #e2e5eb;
-      --grey-text: #6b7280;
-      --text: #111827;
-      --white: #ffffff;
-      --amber-light: #fffbeb;
-      --green-light: #f0fdf4;
-      --green-mid: #bbf7d0;
-      --green: #16a34a;
-      --radius: 4px;
-      --radius-sm: 3px;
-      --toggle-bg: #e2e5eb;
-      --toggle-thumb: #ffffff;
+      --blue: #2563eb; --blue-light: #eff6ff; --blue-mid: #bfdbfe; --blue-dark: #1d4ed8;
+      --grey-bg: #f5f6f8; --grey-border: #e2e5eb; --grey-text: #6b7280;
+      --text: #111827; --white: #ffffff;
+      --amber-light: #fffbeb; --green-light: #f0fdf4; --green-mid: #bbf7d0; --green: #16a34a;
+      --radius: 4px; --radius-sm: 3px;
+      --toggle-bg: #e2e5eb; --toggle-thumb: #ffffff;
       --card-glow: rgba(37, 99, 235, 0.18);
     }
+    
     [data-theme="dark"] {
-      --grey-bg: #0c0906;
-      --grey-border: #4a3a1e;
-      --grey-text: #a89264;
-      --text: #ecdfba;
-      --white: #17130d;
-      --blue-light: #2a2210;
-      --blue-mid: #6b551f;
-      --blue-dark: #d4af37;
-      --blue: #d4af37;
-      --amber-light: #241a08;
-      --green-light: #200a0a;
-      --green-mid: #4a1414;
-      --green: #a31f22;
-      --toggle-bg: #d4af37;
-      --toggle-thumb: #17130d;
+      --grey-bg: #0c0906; --grey-border: #4a3a1e; --grey-text: #a89264;
+      --text: #ecdfba; --white: #17130d;
+      --blue-light: #2a2210; --blue-mid: #6b551f; --blue-dark: #d4af37; --blue: #d4af37;
+      --amber-light: #241a08; --green-light: #200a0a; --green-mid: #4a1414; --green: #a31f22;
+      --toggle-bg: #d4af37; --toggle-thumb: #17130d;
       --card-glow: rgba(212, 175, 55, 0.15);
     }
+    
     body {
       font-family: 'EB Garamond', serif;
       background: var(--grey-bg);
@@ -59,205 +41,586 @@
       padding: 12px 12px 32px;
       transition: background 0.25s ease, color 0.25s ease;
     }
+    
     [data-theme="dark"] body {
-      background-image:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.03), transparent 40%),
+      background-image: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.03), transparent 40%),
         repeating-linear-gradient(135deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 2px, transparent 2px, transparent 6px);
     }
+    
     [data-theme="light"] body {
-      background-image:
-        radial-gradient(circle at 10% 0%, rgba(37,99,235,0.12), transparent 45%),
+      background-image: radial-gradient(circle at 10% 0%, rgba(37,99,235,0.12), transparent 45%),
         radial-gradient(circle at 95% 100%, rgba(37,99,235,0.10), transparent 40%),
         linear-gradient(rgba(37,99,235,0.06) 1px, transparent 1px),
         linear-gradient(90deg, rgba(37,99,235,0.06) 1px, transparent 1px);
       background-size: auto, auto, 26px 26px, 26px 26px;
     }
+    
+    /* Solid backgrounds for cards - no transparency */
     [data-theme="light"] .card,
     [data-theme="light"] .result-card,
     [data-theme="light"] .trains-panel,
     [data-theme="light"] .day-badge-wrap {
-      background: rgba(255,255,255,0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-color: rgba(37,99,235,0.25);
+      background: #ffffff;
+      border-color: var(--grey-border);
     }
+    
     [data-theme="light"] .find-btn {
       box-shadow: 0 0 0 1px rgba(37,99,235,0.3), 0 4px 18px rgba(37,99,235,0.35);
     }
+    
     .shell { max-width: 420px; margin: 0 auto; }
-    .header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; padding: 0 2px; }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding: 0 2px;
+    }
+    
     .header-icon {
-      width: 40px; height: 40px;
+      width: 40px;
+      height: 40px;
       background: radial-gradient(circle at 35% 30%, var(--blue-mid), var(--blue-dark) 70%);
       border-radius: 50%;
       border: 2px solid var(--blue);
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-shrink: 0;
       box-shadow: 0 3px 12px var(--card-glow);
     }
+    
     .header-icon svg { width: 22px; height: 22px; }
     .header-text { flex: 1; }
+    
     .header-text h1 {
-      font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: var(--blue-dark);
-      line-height: 1.2; letter-spacing: 0.06em; text-transform: uppercase;
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      line-height: 1.2;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       text-shadow: 0 1px 0 rgba(0,0,0,0.25);
     }
-    .header-text p { font-size: 0.72rem; color: var(--grey-text); margin-top: 2px; letter-spacing: 0.03em; }
-    .theme-toggle {
-      background: var(--toggle-bg); border: none; border-radius: 20px;
-      width: 42px; height: 22px; cursor: pointer; position: relative;
-      flex-shrink: 0; transition: background 0.25s ease; outline: none;
+    
+    .header-text p {
+      font-size: 0.72rem;
+      color: var(--grey-text);
+      margin-top: 2px;
+      letter-spacing: 0.03em;
     }
+    
+    .theme-toggle {
+      background: var(--toggle-bg);
+      border: none;
+      border-radius: 20px;
+      width: 42px;
+      height: 22px;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.25s ease;
+      outline: none;
+    }
+    
     .theme-toggle::after {
-      content: ''; position: absolute; top: 2px; left: 2px;
-      width: 18px; height: 18px; background: var(--toggle-thumb);
-      border-radius: 50%; transition: transform 0.25s ease;
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      background: var(--toggle-thumb);
+      border-radius: 50%;
+      transition: transform 0.25s ease;
       box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
+    
     [data-theme="light"] .theme-toggle::after { transform: translateX(20px); }
-    .theme-toggle-wrap { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+    
+    .theme-toggle-wrap {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    
     .theme-icon { font-size: 0.8rem; line-height: 1; user-select: none; }
     
     .day-badge-wrap {
-      display: flex; align-items: center; justify-content: space-between;
-      background: var(--white); border: 1px solid var(--grey-border);
-      border-radius: var(--radius-sm); padding: 8px 12px; margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--white);
+      border: 1px solid var(--grey-border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      margin-bottom: 10px;
       transition: background 0.25s ease, border-color 0.25s ease;
     }
+    
     .day-badge-left { display: flex; align-items: center; gap: 8px; }
-    .day-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+    
+    .day-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+    
     .day-dot.weekend { background: var(--green); }
-    .day-badge-label { font-family: 'Cinzel', serif; font-size: 0.76rem; font-weight: 600; color: var(--text); letter-spacing: 0.03em; }
-    .day-badge-sub { font-size: 0.7rem; color: var(--grey-text); margin-top: 1px; }
+    
+    .day-badge-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.03em;
+    }
+    
+    .day-badge-sub {
+      font-size: 0.7rem;
+      color: var(--grey-text);
+      margin-top: 1px;
+    }
+    
     .day-change-btn {
-      font-size: 0.72rem; font-weight: 600; font-family: 'Cinzel', serif;
-      color: var(--blue); background: none; border: none; cursor: pointer; padding: 2px 0; white-space: nowrap; flex-shrink: 0;
-      text-transform: uppercase; letter-spacing: 0.04em;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: 'Cinzel', serif;
+      color: var(--blue);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 0;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
-    .day-picker { display: none; gap: 4px; margin-bottom: 10px; }
+    
+    .day-picker {
+      display: none;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+    
     .day-picker.open { display: flex; }
+    
     .day-pick-btn {
-      flex: 1; padding: 7px 4px; font-size: 0.72rem; font-weight: 600; font-family: 'Cinzel', serif;
-      text-transform: uppercase; letter-spacing: 0.03em;
-      border: 1.5px solid var(--grey-border); border-radius: var(--radius-sm);
-      background: var(--white); color: var(--grey-text); cursor: pointer; text-align: center;
+      flex: 1;
+      padding: 7px 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: 'Cinzel', serif;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      border: 1.5px solid var(--grey-border);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      color: var(--grey-text);
+      cursor: pointer;
+      text-align: center;
     }
-    .day-pick-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
-    .day-pick-btn.active.weekend { background: var(--green); border-color: var(--green); }
+    
+    .day-pick-btn.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+    
+    .day-pick-btn.active.weekend {
+      background: var(--green);
+      border-color: var(--green);
+    }
     
     .offline-badge {
-      background: #fee2e2; color: #b91c1c; border-radius: 20px; padding: 4px 10px;
-      font-size: 0.72rem; font-weight: 500; display: none; margin-bottom: 12px; text-align: center;
+      background: #fee2e2;
+      color: #b91c1c;
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      display: none;
+      margin-bottom: 12px;
+      text-align: center;
     }
     
     .card {
-      background: var(--white); border-radius: var(--radius); border: 1.5px solid var(--grey-border);
-      padding: 14px; margin-bottom: 10px; box-shadow: 0 2px 12px var(--card-glow), inset 0 0 0 1px rgba(212,175,55,0.08);
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--grey-border);
+      padding: 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 12px var(--card-glow), inset 0 0 0 1px rgba(212,175,55,0.08);
       transition: background 0.25s ease, border-color 0.25s ease;
     }
+    
     .field { position: relative; }
-    .field label { display: block; font-size: 0.72rem; font-weight: 600; color: var(--grey-text); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    
+    .field label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--grey-text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
     
     .custom-select-trigger {
-      width: 100%; padding: 8px 10px; font-size: 0.9rem; font-family: 'EB Garamond', serif;
-      border-radius: var(--radius-sm); border: 1.5px solid var(--grey-border); background: var(--grey-bg); color: var(--text);
-      cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: border-color 0.15s;
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 0.9rem;
+      font-family: 'EB Garamond', serif;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--grey-border);
+      background: var(--grey-bg);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.15s;
     }
+    
     .custom-select-trigger::after {
-      content: ''; width: 14px; height: 14px;
+      content: '';
+      width: 14px;
+      height: 14px;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: center; background-size: contain; transition: transform 0.15s ease;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      transition: transform 0.15s ease;
     }
+    
     .field.open .custom-select-trigger { border-color: var(--blue); }
     .field.open .custom-select-trigger::after { transform: rotate(180deg); }
     
     .dropdown-container {
-      position: absolute; top: calc(100% + 4px); left: 0; right: 0;
-      background: var(--white); border: 1px solid var(--grey-border);
-      border-radius: var(--radius-sm); padding: 4px 0; z-index: 100;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2); display: none;
-      max-height: 190px; overflow-y: auto; opacity: 0; transform: translateY(-4px);
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border: 1px solid var(--grey-border);
+      border-radius: var(--radius-sm);
+      padding: 4px 0;
+      z-index: 100;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      display: none;
+      max-height: 190px;
+      overflow-y: auto;
+      opacity: 0;
+      transform: translateY(-4px);
       transition: transform 0.12s ease, opacity 0.12s ease;
     }
-    .field.open .dropdown-container { display: block; opacity: 1; transform: translateY(0); }
+    
+    .field.open .dropdown-container {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
     
     .dropdown-option {
-      padding: 7px 12px; font-size: 0.82rem; font-weight: 500; cursor: pointer; color: var(--text);
-      display: flex; align-items: center; justify-content: space-between; transition: background 0.1s;
+      padding: 7px 12px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.1s;
     }
-    .dropdown-option:hover { background: var(--grey-bg); color: var(--blue); }
-    .dropdown-option.selected { background: var(--blue-light); color: var(--blue); font-weight: 600; }
-    .dropdown-option .option-index { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--grey-text); opacity: 0.7; }
-
-    .swap-row { display: flex; justify-content: center; margin: 2px 0; }
+    
+    .dropdown-option:hover {
+      background: var(--grey-bg);
+      color: var(--blue);
+    }
+    
+    .dropdown-option.selected {
+      background: var(--blue-light);
+      color: var(--blue);
+      font-weight: 600;
+    }
+    
+    .dropdown-option .option-index {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--grey-text);
+      opacity: 0.7;
+    }
+    
+    .swap-row {
+      display: flex;
+      justify-content: center;
+      margin: 2px 0;
+    }
+    
     .swap-btn {
-      background: var(--grey-bg); border: 1.5px solid var(--grey-border); border-radius: 50%;
-      width: 28px; height: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      color: var(--grey-text); transition: transform 0.25s;
+      background: var(--grey-bg);
+      border: 1.5px solid var(--grey-border);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--grey-text);
+      transition: transform 0.25s;
     }
+    
     .swap-btn svg { width: 14px; height: 14px; }
-    .swap-btn:active { transform: rotate(180deg); background: var(--blue-mid); }
+    .swap-btn:active {
+      transform: rotate(180deg);
+      background: var(--blue-mid);
+    }
     
     .find-btn {
-      width: 100%; padding: 11px; background: var(--blue); color: var(--white); font-family: 'Cinzel', serif;
-      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-      border: 1px solid var(--blue-dark); border-radius: var(--radius-sm); cursor: pointer;
-      margin-top: 12px; box-shadow: 0 3px 10px var(--card-glow);
+      width: 100%;
+      padding: 11px;
+      background: var(--blue);
+      color: var(--white);
+      font-family: 'Cinzel', serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid var(--blue-dark);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      margin-top: 12px;
+      box-shadow: 0 3px 10px var(--card-glow);
     }
-    .find-btn.weekend { background: var(--green); border-color: var(--green); box-shadow: 0 3px 10px rgba(163, 31, 34, 0.3); }
+    
+    .find-btn.weekend {
+      background: var(--green);
+      border-color: var(--green);
+      box-shadow: 0 3px 10px rgba(163, 31, 34, 0.3);
+    }
     
     .result-card {
-      background: var(--white); border-radius: var(--radius); border: 1px solid var(--grey-border);
-      margin-bottom: 10px; overflow: hidden; box-shadow: 0 2px 12px var(--card-glow); animation: slideUp 0.18s ease-out;
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--grey-border);
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px var(--card-glow);
+      animation: slideUp 0.18s ease-out;
     }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-    .result-header { background: var(--blue-light); border-bottom: 1px solid var(--blue-mid); padding: 10px 14px; }
-    .result-header.weekend { background: var(--green-light); border-bottom-color: var(--green-mid); }
-    .result-tag { font-family: 'Cinzel', serif; font-size: 0.66rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue-dark); margin-bottom: 2px; }
+    
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .result-header {
+      background: var(--blue-light);
+      border-bottom: 1px solid var(--blue-mid);
+      padding: 10px 14px;
+    }
+    
+    .result-header.weekend {
+      background: var(--green-light);
+      border-bottom-color: var(--green-mid);
+    }
+    
+    .result-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.66rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--blue-dark);
+      margin-bottom: 2px;
+    }
+    
     .result-tag.weekend { color: var(--green); }
-    .result-countdown { font-family: 'DM Mono', monospace; font-size: 2rem; font-weight: 500; color: var(--blue-dark); line-height: 1; }
+    
+    .result-countdown {
+      font-family: 'DM Mono', monospace;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--blue-dark);
+      line-height: 1;
+    }
+    
     .result-countdown.weekend { color: var(--green); }
+    
     .result-body { padding: 10px 14px; }
-    .result-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--grey-border); }
+    
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      border-bottom: 1px solid var(--grey-border);
+    }
+    
     .result-row:last-child { border-bottom: none; }
     .result-row .label { font-size: 0.76rem; color: var(--grey-text); }
     .result-row .value { font-size: 0.84rem; font-weight: 600; color: var(--text); }
+    
     .transfer-badge {
-      display: inline-flex; align-items: center; gap: 4px; background: var(--amber-light); color: #92400e;
-      border: 1px solid #fde68a; border-radius: 20px; padding: 3px 8px; font-size: 0.7rem; font-weight: 600; margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--amber-light);
+      color: #92400e;
+      border: 1px solid #fde68a;
+      border-radius: 20px;
+      padding: 3px 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 8px;
     }
+    
     [data-theme="dark"] .transfer-badge { color: #fbbf24; }
-    .empty-state { padding: 20px 14px; text-align: center; color: var(--grey-text); font-size: 0.82rem; }
+    
+    .empty-state {
+      padding: 20px 14px;
+      text-align: center;
+      color: var(--grey-text);
+      font-size: 0.82rem;
+    }
+    
     .empty-state .icon { font-size: 1.3rem; margin-bottom: 4px; }
     
     .trains-panel {
-      background: var(--white); border-radius: var(--radius); border: 1px solid var(--grey-border);
-      margin-bottom: 10px; overflow: hidden; box-shadow: 0 2px 12px var(--card-glow); animation: slideUp 0.18s ease-out;
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--grey-border);
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px var(--card-glow);
+      animation: slideUp 0.18s ease-out;
     }
-    .trains-panel-header { padding: 10px 14px; border-bottom: 1px solid var(--grey-border); display: flex; justify-content: space-between; align-items: center; }
-    .trains-panel-header span { font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 600; color: var(--grey-text); text-transform: uppercase; letter-spacing: 0.07em; }
-    .train-row { display: flex; align-items: center; padding: 8px 14px; border-bottom: 1px solid var(--grey-border); gap: 8px; cursor: pointer; }
+    
+    .trains-panel-header {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--grey-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .trains-panel-header span {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--grey-text);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    
+    .train-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--grey-border);
+      gap: 8px;
+      cursor: pointer;
+    }
+    
     .train-row:last-child { border-bottom: none; }
     .train-row:hover { background: var(--grey-bg); }
     .train-row.selected { background: var(--blue-light); }
     .train-row.selected.weekend-row { background: var(--green-light); }
+    
     .train-no {
-      font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500; background: var(--grey-bg);
-      border: 1px solid var(--grey-border); border-radius: 5px; padding: 1px 5px; color: var(--grey-text); white-space: nowrap;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: var(--grey-bg);
+      border: 1px solid var(--grey-border);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: var(--grey-text);
+      white-space: nowrap;
     }
-    .train-row.selected .train-no { background: var(--blue-mid); border-color: var(--blue-mid); color: var(--blue-dark); }
-    .train-row.selected.weekend-row .train-no { background: var(--green-mid); border-color: var(--green-mid); color: var(--green); }
-    .train-times { flex: 1; display: flex; gap: 4px; align-items: center; font-size: 0.82rem; font-weight: 500; }
+    
+    .train-row.selected .train-no {
+      background: var(--blue-mid);
+      border-color: var(--blue-mid);
+      color: var(--blue-dark);
+    }
+    
+    .train-row.selected.weekend-row .train-no {
+      background: var(--green-mid);
+      border-color: var(--green-mid);
+      color: var(--green);
+    }
+    
+    .train-times {
+      flex: 1;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+    
     .train-times .arr { color: var(--grey-text); font-weight: 400; }
     .train-times .arrow { color: var(--grey-border); font-size: 0.74rem; }
-    .train-eta { font-size: 0.74rem; color: var(--grey-text); text-align: right; white-space: nowrap; }
-    .train-row.selected .train-eta { color: var(--blue); font-weight: 600; }
-    .train-row.selected.weekend-row .train-eta { color: var(--green); font-weight: 600; }
+    
+    .train-eta {
+      font-size: 0.74rem;
+      color: var(--grey-text);
+      text-align: right;
+      white-space: nowrap;
+    }
+    
+    .train-row.selected .train-eta {
+      color: var(--blue);
+      font-weight: 600;
+    }
+    
+    .train-row.selected.weekend-row .train-eta {
+      color: var(--green);
+      font-weight: 600;
+    }
+    
     .train-row.past { opacity: 0.45; }
-    .live-dot { display: inline-block; width: 6px; height: 6px; background: var(--green); border-radius: 50%; margin-right: 4px; vertical-align: middle; animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
-    footer { text-align: center; font-size: 0.68rem; color: var(--grey-text); margin-top: 6px; opacity: 0.7; }
-    footer .credit { display: block; margin-top: 4px; font-family: 'Cinzel', serif; letter-spacing: 0.05em; color: var(--blue-dark); text-decoration: none; }
+    
+    .live-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      margin-right: 4px;
+      vertical-align: middle;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    
+    footer {
+      text-align: center;
+      font-size: 0.68rem;
+      color: var(--grey-text);
+      margin-top: 6px;
+      opacity: 0.7;
+    }
+    
+    footer .credit {
+      display: block;
+      margin-top: 4px;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0.05em;
+      color: var(--blue-dark);
+      text-decoration: none;
+    }
+    
     footer .credit:hover { text-decoration: underline; }
   </style>
 </head>
@@ -289,13 +652,13 @@
         <div class="day-badge-sub" id="dayBadgeSub">Please wait</div>
       </div>
     </div>
-    <button class="day-change-btn" onclick="toggleDayPicker()">Change</button>
+    <button class="day-change-btn" id="dayChangeBtn">Change</button>
   </div>
 
   <div class="day-picker" id="dayPicker">
-    <button class="day-pick-btn" id="pickWeekday" onclick="setDayType('weekday')">Weekday</button>
-    <button class="day-pick-btn" id="pickSaturday" onclick="setDayType('saturday')">Saturday</button>
-    <button class="day-pick-btn" id="pickSunday" onclick="setDayType('sunday')">Sunday</button>
+    <button class="day-pick-btn" data-day="weekday">Weekday</button>
+    <button class="day-pick-btn" data-day="saturday">Saturday</button>
+    <button class="day-pick-btn" data-day="sunday">Sunday</button>
   </div>
 
   <div class="card">
@@ -305,7 +668,7 @@
       <div class="dropdown-container" id="originDropdown"></div>
     </div>
     <div class="swap-row">
-      <button class="swap-btn" id="swapBtn" onclick="handleSwap()" title="Swap stations">
+      <button class="swap-btn" id="swapBtn" title="Swap stations">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l-4-4m4 4l4-4"/>
         </svg>
@@ -316,7 +679,7 @@
       <div class="custom-select-trigger" id="destTrigger">Select Destination</div>
       <div class="dropdown-container" id="destDropdown"></div>
     </div>
-    <button class="find-btn" id="findBtn" onclick="handleFind()">Show my next train</button>
+    <button class="find-btn" id="findBtn">Show my next train</button>
   </div>
 
   <div id="resultArea"></div>
@@ -330,57 +693,556 @@
 
 <script>
 (function() {
-  const saved = localStorage.getItem('prasa-theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', saved);
+  'use strict';
+
+  // ===== DOM References =====
+  var dom = {
+    html: document.documentElement,
+    themeToggle: document.getElementById('themeToggle'),
+    themeIcon: document.getElementById('themeIcon'),
+    headerSub: document.getElementById('headerSub'),
+    dayDot: document.getElementById('dayDot'),
+    dayBadgeLabel: document.getElementById('dayBadgeLabel'),
+    dayBadgeSub: document.getElementById('dayBadgeSub'),
+    dayPicker: document.getElementById('dayPicker'),
+    dayChangeBtn: document.getElementById('dayChangeBtn'),
+    originField: document.getElementById('originField'),
+    destField: document.getElementById('destField'),
+    originTrigger: document.getElementById('originTrigger'),
+    destTrigger: document.getElementById('destTrigger'),
+    originDropdown: document.getElementById('originDropdown'),
+    destDropdown: document.getElementById('destDropdown'),
+    findBtn: document.getElementById('findBtn'),
+    swapBtn: document.getElementById('swapBtn'),
+    resultArea: document.getElementById('resultArea'),
+    trainsPanel: document.getElementById('trainsPanel')
+  };
+
+  // ===== Theme Management =====
+  function setTheme(theme) {
+    dom.html.setAttribute('data-theme', theme);
+    localStorage.setItem('prasa-theme', theme);
+    dom.themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+  }
+
+  function toggleTheme() {
+    var current = dom.html.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  // Initialize theme
+  setTheme(localStorage.getItem('prasa-theme') || 'dark');
+  dom.themeToggle.addEventListener('click', toggleTheme);
+
+  // ===== Schedule Data =====
+  var STATION_LIST = [
+    'Naledi', 'Merafe', 'Inhlazane', 'Ikwezi', 'Dube', 'Phefeni',
+    'Phomolong', 'Mzimhlope', 'New Canada', 'Longdale', 'Croesus',
+    'Langlaagte', 'Grosvenor', 'Mayfair', 'Braamfontein', 'Johannesburg'
+  ];
+
+  function buildTrains(inboundTimes, outboundTimes) {
+    var inbound = { stations: STATION_LIST, trains: inboundTimes };
+    var outbound = { stations: STATION_LIST.slice().reverse(), trains: outboundTimes };
+    return { inbound: inbound, outbound: outbound };
+  }
+
+  var SCHEDULE = {
+    naledi_joburg: {
+      weekday: buildTrains([
+        {no:'9301',t:['04:20','04:23','04:28','04:33','04:37','04:39','04:41','04:43','04:46','04:51','04:54','04:57','05:00','05:02','05:05','05:10']},
+        {no:'9303',t:['05:00','05:03','05:08','05:13','05:17','05:19','05:21','05:23','05:26','05:31','05:33','05:37','05:40','05:42','05:45','05:50']},
+        {no:'9305',t:['05:20','05:23','05:28','05:33','05:37','05:39','05:41','05:43','05:46','05:51','05:53','05:57','06:00','06:02','06:05','06:10']},
+        {no:'9307',t:['05:50','05:53','05:58','06:03','06:07','06:09','06:11','06:13','06:16','06:21','06:23','06:27','06:30','06:32','06:35','06:38']},
+        {no:'9309',t:['06:15','06:18','06:23','06:28','06:32','06:34','06:36','06:38','06:41','06:46','06:48','06:52','06:55','06:57','07:00','07:05']},
+        {no:'9311',t:['07:15','07:18','07:23','07:28','07:32','07:34','07:36','07:38','07:41','07:46','07:48','07:52','07:55','07:57','08:00','08:05']},
+        {no:'9313',t:['07:50','07:53','07:58','08:03','08:07','08:09','08:11','08:13','08:16','08:21','08:23','08:27','08:30','08:32','08:35','08:40']},
+        {no:'9315',t:['09:15','09:18','09:23','09:28','09:32','09:34','09:36','09:38','09:41','09:46','09:48','09:52','09:55','09:57','10:00','10:05']},
+        {no:'9317',t:['10:15','10:18','10:23','10:28','10:32','10:34','10:36','10:38','10:41','10:46','10:48','10:52','10:55','10:57','11:00','11:05']},
+        {no:'9319',t:['11:15','11:18','11:23','11:28','11:32','11:34','11:36','11:38','11:41','11:46','11:48','11:52','11:55','11:57','12:00','12:05']},
+        {no:'9321',t:['12:15','12:18','12:23','12:28','12:32','12:34','12:36','12:38','12:41','12:46','12:48','12:52','12:55','12:57','13:00','13:05']},
+        {no:'9323',t:['13:15','13:18','13:23','13:28','13:32','13:34','13:36','13:38','13:41','13:46','13:48','13:52','13:55','13:57','14:00','14:05']},
+        {no:'9325',t:['14:15','14:18','14:23','14:28','14:32','14:34','14:36','14:38','14:41','14:46','14:48','14:52','14:55','14:57','15:00','15:05']},
+        {no:'9327',t:['15:15','15:18','15:23','15:28','15:32','15:34','15:36','15:38','15:41','15:46','15:48','15:52','15:55','15:57','16:00','16:05']},
+        {no:'9329',t:['16:15','16:18','16:23','16:28','16:32','16:34','16:36','16:38','16:41','16:46','16:48','16:52','16:55','16:57','17:00','17:05']},
+        {no:'9331',t:['18:35','18:38','18:43','18:48','18:52','18:56','18:56','18:58','19:01','19:06','19:08','19:12','19:15','19:17','19:20','19:25']}
+      ], [
+        {no:'9300',t:['06:50','06:54','06:58','07:00','07:03','07:06','07:08','07:13','07:16','07:19','07:21','07:23','07:27','07:31','07:36','07:40']},
+        {no:'9302',t:['08:15','08:19','08:23','08:25','08:28','08:31','08:33','08:38','08:41','08:44','08:46','08:48','08:52','08:56','09:01','09:05']},
+        {no:'9304',t:['08:50','08:54','08:58','09:00','09:03','09:06','09:08','09:13','09:16','09:19','09:21','09:23','09:27','09:31','09:36','09:40']},
+        {no:'9306',t:['10:15','10:19','10:23','10:25','10:28','10:31','10:33','10:38','10:41','10:44','10:46','10:48','10:52','10:56','11:01','11:05']},
+        {no:'9308',t:['11:15','11:19','11:23','11:25','11:28','11:31','11:33','11:38','11:41','11:44','11:46','11:48','11:52','11:56','12:01','12:05']},
+        {no:'9310',t:['12:15','12:19','12:23','12:25','12:28','12:31','12:33','12:38','12:41','12:44','12:46','12:48','12:52','12:56','13:01','13:05']},
+        {no:'9312',t:['13:15','13:19','13:23','13:25','13:28','13:31','13:33','13:38','13:41','13:44','13:46','13:48','13:52','13:56','14:01','14:05']},
+        {no:'9314',t:['14:15','14:19','14:23','14:25','14:28','14:31','14:33','14:38','14:41','14:44','14:46','14:48','14:52','14:56','15:01','15:05']},
+        {no:'9316',t:['15:15','15:19','15:23','15:25','15:28','15:31','15:33','15:38','15:41','15:44','15:46','15:48','15:52','15:56','16:01','16:05']},
+        {no:'9318',t:['16:15','16:19','16:23','16:25','16:28','16:31','16:33','16:38','16:41','16:44','16:46','16:48','16:52','16:56','17:01','17:05']},
+        {no:'9320',t:['17:05','17:09','17:13','17:15','17:18','17:21','17:23','17:28','17:31','17:34','17:36','17:38','17:42','17:46','17:51','17:55']},
+        {no:'9322',t:['17:35','17:39','17:43','17:45','17:48','17:51','17:53','17:58','18:01','18:04','18:06','18:08','18:12','18:16','18:21','18:25']},
+        {no:'9324',t:['18:00','18:04','18:08','18:10','18:13','18:16','18:18','18:23','18:26','18:29','18:31','18:33','18:37','18:41','18:46','18:50']},
+        {no:'9326',t:['18:50','18:54','18:58','19:00','19:03','19:06','19:08','19:13','19:16','19:19','19:21','19:23','19:27','19:31','19:36','19:40']},
+        {no:'9328',t:['19:35','19:39','19:43','19:45','19:48','19:51','19:53','19:58','20:01','20:04','20:06','20:08','20:12','20:16','20:21','20:25']}
+      ]),
+      saturday: buildTrains([
+        {no:'9401',t:['06:30','06:33','06:38','06:43','06:47','06:49','06:51','06:53','06:56','07:01','07:03','07:07','07:10','07:12','07:15','07:20']},
+        {no:'9403',t:['08:00','08:03','08:08','08:13','08:17','08:19','08:21','08:23','08:26','08:31','08:33','08:37','08:40','08:42','08:45','08:50']},
+        {no:'9405',t:['10:00','10:03','10:08','10:13','10:17','10:19','10:21','10:23','10:26','10:31','10:33','10:37','10:40','10:42','10:45','10:50']},
+        {no:'9407',t:['12:00','12:03','12:08','12:13','12:17','12:19','12:21','12:23','12:26','12:31','12:33','12:37','12:40','12:42','12:45','12:50']},
+        {no:'9409',t:['14:30','14:33','14:38','14:43','14:47','14:49','14:51','14:53','14:56','15:01','15:03','15:07','15:10','15:12','15:15','15:20']},
+        {no:'9411',t:['17:00','17:03','17:08','17:13','17:17','17:19','17:21','17:23','17:26','17:31','17:33','17:37','17:40','17:42','17:45','17:50']}
+      ], [
+        {no:'9402',t:['07:30','07:34','07:38','07:40','07:43','07:46','07:48','07:53','07:56','07:59','08:01','08:03','08:07','08:11','08:16','08:20']},
+        {no:'9404',t:['09:10','09:14','09:18','09:20','09:23','09:26','09:28','09:33','09:36','09:39','09:41','09:43','09:47','09:51','09:56','10:00']},
+        {no:'9406',t:['11:10','11:14','11:18','11:20','11:23','11:26','11:28','11:33','11:36','11:39','11:41','11:43','11:47','11:51','11:56','12:00']},
+        {no:'9408',t:['13:10','13:14','13:18','13:20','13:23','13:26','13:28','13:33','13:36','13:39','13:41','13:43','13:47','13:51','13:56','14:00']},
+        {no:'9410',t:['15:30','15:34','15:38','15:40','15:43','15:46','15:48','15:53','15:56','15:59','16:01','16:03','16:07','16:11','16:16','16:20']},
+        {no:'9412',t:['18:10','18:14','18:18','18:20','18:23','18:26','18:28','18:33','18:36','18:39','18:41','18:43','18:47','18:51','18:56','19:00']}
+      ]),
+      sunday: buildTrains([
+        {no:'9501',t:['09:00','09:03','09:08','09:13','09:17','09:19','09:21','09:23','09:26','09:31','09:33','09:37','09:40','09:42','09:45','09:50']},
+        {no:'9503',t:['13:00','13:03','13:08','13:13','13:17','13:19','13:21','13:23','13:26','13:31','13:33','13:37','13:40','13:42','13:45','13:50']},
+        {no:'9505',t:['17:00','17:03','17:08','17:13','17:17','17:19','17:21','17:23','17:26','17:31','17:33','17:37','17:40','17:42','17:45','17:50']}
+      ], [
+        {no:'9502',t:['10:10','10:14','10:18','10:20','10:23','10:26','10:28','10:33','10:36','10:39','10:41','10:43','10:47','10:51','10:56','11:00']},
+        {no:'9504',t:['14:10','14:14','14:18','14:20','14:23','14:26','14:28','14:33','14:36','14:39','14:41','14:43','14:47','14:51','14:56','15:00']},
+        {no:'9506',t:['18:10','18:14','18:18','18:20','18:23','18:26','18:28','18:33','18:36','18:39','18:41','18:43','18:47','18:51','18:56','19:00']}
+      ])
+    }
+  };
+
+  // ===== State =====
+  var currentDayType = 'weekday';
+  var selectedOrigin = 'Naledi';
+  var selectedDest = 'Johannesburg';
+
+  // ===== Utility Functions =====
+  function getStationDisplay(name) {
+    return name === 'Johannesburg' ? 'Johannesburg Park Station' : name;
+  }
+
+  function timeToMinutes(timeStr) {
+    var parts = timeStr.split(':');
+    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+  }
+
+  function formatCountdown(minutes) {
+    if (minutes <= 0) return 'Now';
+    if (minutes > 60) return Math.floor(minutes / 60) + 'h ' + (minutes % 60) + 'm';
+    return minutes + ' min';
+  }
+
+  function getCurrentMinutes() {
+    var now = new Date();
+    return now.getHours() * 60 + now.getMinutes();
+  }
+
+  function autoDetectDay() {
+    var day = new Date().getDay();
+    if (day === 6) return 'saturday';
+    if (day === 0) return 'sunday';
+    return 'weekday';
+  }
+
+  function clearResults() {
+    dom.resultArea.innerHTML = '';
+    dom.trainsPanel.innerHTML = '';
+  }
+
+  // ===== Day Type Management =====
+  function setDayType(type) {
+    currentDayType = type;
+    dom.dayPicker.classList.remove('open');
+
+    var isWeekend = type !== 'weekday';
+    var dayInfo = {
+      weekday: { label: 'Weekday schedule', sub: 'Mon-Fri • Full service' },
+      saturday: { label: 'Saturday schedule', sub: 'Reduced weekend run' },
+      sunday: { label: 'Sunday schedule', sub: 'Minimum skeleton run' }
+    };
+
+    dom.dayDot.className = 'day-dot' + (isWeekend ? ' weekend' : '');
+    dom.dayBadgeLabel.textContent = dayInfo[type].label;
+    dom.dayBadgeSub.textContent = dayInfo[type].sub;
+    dom.findBtn.className = 'find-btn' + (isWeekend ? ' weekend' : '');
+    dom.headerSub.innerHTML = '<span class="live-dot"></span>Soweto lines &middot; ' + type.charAt(0).toUpperCase() + type.slice(1) + 's';
+
+    var dayBtns = document.querySelectorAll('.day-pick-btn');
+    for (var i = 0; i < dayBtns.length; i++) {
+      var btn = dayBtns[i];
+      var isActive = btn.getAttribute('data-day') === type;
+      btn.className = 'day-pick-btn' + (isActive ? ' active' : '');
+      if (isActive && isWeekend) btn.className += ' weekend';
+    }
+
+    clearResults();
+  }
+
+  function toggleDayPicker() {
+    dom.dayPicker.classList.toggle('open');
+  }
+
+  // ===== Dropdown Building =====
+  function buildDropdowns() {
+    var originDropdown = dom.originDropdown;
+    var destDropdown = dom.destDropdown;
+    
+    originDropdown.innerHTML = '';
+    destDropdown.innerHTML = '';
+
+    for (var i = 0; i < STATION_LIST.length; i++) {
+      var station = STATION_LIST[i];
+      var displayName = getStationDisplay(station);
+      var idx = String(i + 1).padStart(2, '0');
+
+      var optO = document.createElement('div');
+      optO.className = 'dropdown-option' + (station === selectedOrigin ? ' selected' : '');
+      optO.innerHTML = '<span>' + displayName + '</span><span class="option-index">' + idx + '</span>';
+      (function(s, d, el) {
+        el.addEventListener('click', function() {
+          selectStation('origin', s, d, el);
+        });
+      })(station, displayName, optO);
+      originDropdown.appendChild(optO);
+
+      var optD = document.createElement('div');
+      optD.className = 'dropdown-option' + (station === selectedDest ? ' selected' : '');
+      optD.innerHTML = '<span>' + displayName + '</span><span class="option-index">' + idx + '</span>';
+      (function(s, d, el) {
+        el.addEventListener('click', function() {
+          selectStation('dest', s, d, el);
+        });
+      })(station, displayName, optD);
+      destDropdown.appendChild(optD);
+    }
+
+    dom.originTrigger.textContent = getStationDisplay(selectedOrigin);
+    dom.destTrigger.textContent = getStationDisplay(selectedDest);
+  }
+
+  function selectStation(type, station, displayName, optionEl) {
+    if (type === 'origin') {
+      selectedOrigin = station;
+      dom.originTrigger.textContent = displayName;
+      var opts = dom.originDropdown.querySelectorAll('.dropdown-option');
+      for (var i = 0; i < opts.length; i++) opts[i].classList.remove('selected');
+      optionEl.classList.add('selected');
+      dom.originField.classList.remove('open');
+    } else {
+      selectedDest = station;
+      dom.destTrigger.textContent = displayName;
+      var opts2 = dom.destDropdown.querySelectorAll('.dropdown-option');
+      for (var i = 0; i < opts2.length; i++) opts2[i].classList.remove('selected');
+      optionEl.classList.add('selected');
+      dom.destField.classList.remove('open');
+    }
+    clearResults();
+  }
+
+  // ===== Dropdown Toggle Events =====
+  function setupDropdownEvents() {
+    var activeField = null;
+
+    function toggleField(field) {
+      if (activeField && activeField !== field) {
+        activeField.classList.remove('open');
+      }
+      field.classList.toggle('open');
+      activeField = field.classList.contains('open') ? field : null;
+    }
+
+    dom.originTrigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleField(dom.originField);
+    });
+
+    dom.destTrigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleField(dom.destField);
+    });
+
+    document.addEventListener('click', function() {
+      if (activeField) {
+        activeField.classList.remove('open');
+        activeField = null;
+      }
+    });
+  }
+
+  // ===== Swap Stations =====
+  function handleSwap() {
+    var temp = selectedOrigin;
+    selectedOrigin = selectedDest;
+    selectedDest = temp;
+
+    dom.originTrigger.textContent = getStationDisplay(selectedOrigin);
+    dom.destTrigger.textContent = getStationDisplay(selectedDest);
+
+    var originOpts = dom.originDropdown.querySelectorAll('.dropdown-option');
+    var destOpts = dom.destDropdown.querySelectorAll('.dropdown-option');
+    var originDisplay = getStationDisplay(selectedOrigin);
+    var destDisplay = getStationDisplay(selectedDest);
+
+    for (var i = 0; i < originOpts.length; i++) {
+      var span = originOpts[i].querySelector('span');
+      originOpts[i].classList.toggle('selected', span.textContent === originDisplay);
+    }
+    for (var i = 0; i < destOpts.length; i++) {
+      var span = destOpts[i].querySelector('span');
+      destOpts[i].classList.toggle('selected', span.textContent === destDisplay);
+    }
+
+    clearResults();
+  }
+
+  // ===== Route Finding =====
+  function findDirectRoute(orig, dest, linesData) {
+    for (var lineName in linesData) {
+      var data = linesData[lineName];
+      var inbound = data.inbound;
+      var outbound = data.outbound;
+      
+      var oIn = inbound.stations.indexOf(orig);
+      var dIn = inbound.stations.indexOf(dest);
+      if (oIn !== -1 && dIn !== -1 && oIn < dIn) {
+        return { type: 'direct', stations: inbound.stations, trains: inbound.trains, idxO: oIn, idxD: dIn };
+      }
+      
+      var oOut = outbound.stations.indexOf(orig);
+      var dOut = outbound.stations.indexOf(dest);
+      if (oOut !== -1 && dOut !== -1 && oOut < dOut) {
+        return { type: 'direct', stations: outbound.stations, trains: outbound.trains, idxO: oOut, idxD: dOut };
+      }
+    }
+    return null;
+  }
+
+  // ===== Render Functions =====
+  function renderDirectRoute(orig, dest, route) {
+    var currentMin = getCurrentMinutes();
+    var isWeekend = currentDayType !== 'weekday';
+
+    var validTrains = [];
+    for (var i = 0; i < route.trains.length; i++) {
+      var t = route.trains[i];
+      var dep = t.t[route.idxO];
+      var arr = t.t[route.idxD];
+      if (dep && arr) {
+        var depMin = timeToMinutes(dep);
+        validTrains.push({ no: t.no, dep: dep, arr: arr, depMin: depMin, past: depMin < currentMin });
+      }
+    }
+
+    if (!validTrains.length) {
+      dom.resultArea.innerHTML = '<div class="empty-state"><div class="icon">📭</div>No active train schedules on this line.</div>';
+      return;
+    }
+
+    var nextTrain = null;
+    var isLast = false;
+    for (var i = 0; i < validTrains.length; i++) {
+      if (!validTrains[i].past) {
+        nextTrain = validTrains[i];
+        break;
+      }
+    }
+    if (!nextTrain) {
+      nextTrain = validTrains[validTrains.length - 1];
+      isLast = true;
+    }
+
+    var timeDiff = nextTrain.depMin - currentMin;
+    var countdownStr = (isLast && timeDiff < 0) ? 'Done' : formatCountdown(timeDiff);
+
+    var cleanOrig = getStationDisplay(orig);
+    var cleanDest = getStationDisplay(dest);
+
+    var card = document.createElement('div');
+    card.className = 'result-card';
+    card.innerHTML = 
+      '<div class="result-header' + (isWeekend ? ' weekend' : '') + '">' +
+        '<div class="result-tag' + (isWeekend ? ' weekend' : '') + '">Next Train ETA</div>' +
+        '<div class="result-countdown' + (isWeekend ? ' weekend' : '') + '">' + countdownStr + '</div>' +
+      '</div>' +
+      '<div class="result-body">' +
+        '<div class="result-row"><span class="label">Train Number</span><span class="value">' + nextTrain.no + '</span></div>' +
+        '<div class="result-row"><span class="label">Departure</span><span class="value">' + nextTrain.dep + ' from ' + cleanOrig + '</span></div>' +
+        '<div class="result-row"><span class="label">Arrival</span><span class="value">' + nextTrain.arr + ' at ' + cleanDest + '</span></div>' +
+      '</div>';
+    dom.resultArea.appendChild(card);
+
+    var panel = document.createElement('div');
+    panel.className = 'trains-panel';
+    panel.innerHTML = '<div class="trains-panel-header"><span>All Line Runs</span></div>';
+
+    for (var i = 0; i < validTrains.length; i++) {
+      var t = validTrains[i];
+      var row = document.createElement('div');
+      var isSelected = t.no === nextTrain.no;
+      row.className = 'train-row' + (isSelected ? ' selected' : '') + (isSelected && isWeekend ? ' weekend-row' : '') + (t.past ? ' past' : '');
+
+      var etaLabel = t.past ? 'Departed' : formatCountdown(t.depMin - currentMin);
+      if (t.depMin - currentMin <= 0 && !t.past) etaLabel = 'Now';
+
+      row.innerHTML = 
+        '<div class="train-no">' + t.no + '</div>' +
+        '<div class="train-times"><span>' + t.dep + '</span></div>' +
+        '<div class="train-eta">' + etaLabel + '</div>';
+      panel.appendChild(row);
+    }
+    dom.trainsPanel.appendChild(panel);
+  }
+
+  function renderTransferRoute(orig, dest, transitPoint, leg1, leg2) {
+    var currentMin = getCurrentMinutes();
+    var isWeekend = currentDayType !== 'weekday';
+
+    var options = [];
+    for (var i1 = 0; i1 < leg1.trains.length; i1++) {
+      var t1 = leg1.trains[i1];
+      var d1 = t1.t[leg1.idxO];
+      var a1 = t1.t[leg1.idxD];
+      if (!d1 || !a1) continue;
+      var d1Min = timeToMinutes(d1);
+      var a1Min = timeToMinutes(a1);
+
+      for (var i2 = 0; i2 < leg2.trains.length; i2++) {
+        var t2 = leg2.trains[i2];
+        var d2 = t2.t[leg2.idxO];
+        var a2 = t2.t[leg2.idxD];
+        if (!d2 || !a2) continue;
+        var d2Min = timeToMinutes(d2);
+
+        if (d2Min >= a1Min + 4) {
+          options.push({
+            t1: t1.no, d1: d1, a1: a1, d1Min: d1Min, a1Min: a1Min,
+            t2: t2.no, d2: d2, a2: a2, d2Min: d2Min,
+            layover: d2Min - a1Min,
+            past: d1Min < currentMin
+          });
+        }
+      }
+    }
+
+    if (!options.length) {
+      dom.resultArea.innerHTML = '<div class="empty-state"><div class="icon">⏳</div>No reliable connection schedule matches for this track configuration today.</div>';
+      return;
+    }
+
+    var nextOpt = null;
+    var isLast = false;
+    for (var i = 0; i < options.length; i++) {
+      if (!options[i].past) {
+        nextOpt = options[i];
+        break;
+      }
+    }
+    if (!nextOpt) {
+      nextOpt = options[options.length - 1];
+      isLast = true;
+    }
+
+    var timeDiff = nextOpt.d1Min - currentMin;
+    var countdownStr = (isLast && timeDiff < 0) ? 'Done' : formatCountdown(timeDiff);
+
+    var cleanOrig = getStationDisplay(orig);
+    var cleanDest = getStationDisplay(dest);
+
+    var card = document.createElement('div');
+    card.className = 'result-card';
+    card.innerHTML = 
+      '<div class="result-header' + (isWeekend ? ' weekend' : '') + '">' +
+        '<div class="result-tag' + (isWeekend ? ' weekend' : '') + '">Transfer Connection ETA</div>' +
+        '<div class="result-countdown' + (isWeekend ? ' weekend' : '') + '">' + countdownStr + '</div>' +
+      '</div>' +
+      '<div class="result-body">' +
+        '<div class="transfer-badge">🔄 Connection via ' + transitPoint + ' (' + nextOpt.layover + 'm layover)</div>' +
+        '<div class="result-row"><span class="label">Leg 1 Train (' + cleanOrig + ')</span><span class="value">' + nextOpt.t1 + ' @ ' + nextOpt.d1 + '</span></div>' +
+        '<div class="result-row"><span class="label">Arrive ' + transitPoint + '</span><span class="value">' + nextOpt.a1 + '</span></div>' +
+        '<div class="result-row"><span class="label">Leg 2 Train (' + transitPoint + ')</span><span class="value">' + nextOpt.t2 + ' @ ' + nextOpt.d2 + '</span></div>' +
+        '<div class="result-row"><span class="label">Final Arrival (' + cleanDest + ')</span><span class="value">' + nextOpt.a2 + '</span></div>' +
+      '</div>';
+    dom.resultArea.appendChild(card);
+
+    var panel = document.createElement('div');
+    panel.className = 'trains-panel';
+    panel.innerHTML = '<div class="trains-panel-header"><span>All Connection Options</span></div>';
+
+    for (var i = 0; i < options.length; i++) {
+      var o = options[i];
+      var row = document.createElement('div');
+      var isSelected = o.t1 === nextOpt.t1 && o.t2 === nextOpt.t2;
+      row.className = 'train-row' + (isSelected ? ' selected' : '') + (isSelected && isWeekend ? ' weekend-row' : '') + (o.past ? ' past' : '');
+
+      var etaLabel = o.past ? 'Past' : formatCountdown(o.d1Min - currentMin);
+      if (o.d1Min - currentMin <= 0 && !o.past) etaLabel = 'Now';
+
+      row.innerHTML = 
+        '<div class="train-no" style="font-size:0.65rem">' + o.t1 + '&rarr;' + o.t2 + '</div>' +
+        '<div class="train-times"><span>' + o.d1 + '</span></div>' +
+        '<div class="train-eta">' + etaLabel + ' <br><small style="font-size:0.65rem;color:var(--grey-text)">wait ' + o.layover + 'm</small></div>';
+      panel.appendChild(row);
+    }
+    dom.trainsPanel.appendChild(panel);
+  }
+
+  // ===== Main Find Handler =====
+  function handleFind() {
+    clearResults();
+
+    if (selectedOrigin === selectedDest) {
+      dom.resultArea.innerHTML = '<div class="empty-state"><div class="icon">🔍</div>Origin and destination cannot match.</div>';
+      return;
+    }
+
+    var linesData = {};
+    for (var key in SCHEDULE) {
+      if (SCHEDULE[key][currentDayType]) {
+        linesData[key] = SCHEDULE[key][currentDayType];
+      }
+    }
+
+    var direct = findDirectRoute(selectedOrigin, selectedDest, linesData);
+    if (direct) {
+      renderDirectRoute(selectedOrigin, selectedDest, direct);
+      return;
+    }
+
+    var transferStation = 'New Canada';
+    var leg1 = findDirectRoute(selectedOrigin, transferStation, linesData);
+    var leg2 = findDirectRoute(transferStation, selectedDest, linesData);
+
+    if (leg1 && leg2) {
+      renderTransferRoute(selectedOrigin, selectedDest, transferStation, leg1, leg2);
+    } else {
+      dom.resultArea.innerHTML = '<div class="empty-state"><div class="icon">🗺️</div>No available route configuration found for this specific path.</div>';
+    }
+  }
+
+  // ===== Event Binding & Init =====
+  function init() {
+    var dayBtns = document.querySelectorAll('.day-pick-btn');
+    for (var i = 0; i < dayBtns.length; i++) {
+      (function(btn) {
+        btn.addEventListener('click', function() {
+          setDayType(btn.getAttribute('data-day'));
+        });
+      })(dayBtns[i]);
+    }
+
+    dom.dayChangeBtn.addEventListener('click', toggleDayPicker);
+    dom.findBtn.addEventListener('click', handleFind);
+    dom.swapBtn.addEventListener('click', handleSwap);
+
+    buildDropdowns();
+    setupDropdownEvents();
+
+    var initialDay = autoDetectDay();
+    setDayType(initialDay);
+  }
+
+  // ===== Start App =====
+  init();
 })();
-
-function updateThemeIcon(theme) {
-  document.getElementById('themeIcon').textContent = theme === 'dark' ? '🌙' : '☀️';
-}
-
-document.getElementById('themeToggle').addEventListener('click', function() {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('prasa-theme', next);
-  updateThemeIcon(next);
-});
-updateThemeIcon(document.documentElement.getAttribute('data-theme'));
-
-// UPDATED SCHEDULE based on the official notice
-const SCHEDULE = {
-  naledi_joburg: {
-    weekday: {
-      inbound: {
-        stations: ["Naledi","Merafe","Inhlazane","Ikwezi","Dube","Phefeni","Phomolong","Mzimhlope","New Canada","Longdale","Croesus","Langlaagte","Grosvenor","Mayfair","Braamfontein","Johannesburg"],
-        trains: [
-          {no:"9301",t:["04:20","04:23","04:28","04:33","04:37","04:39","04:41","04:43","04:46","04:51","04:54","04:57","05:00","05:02","05:05","05:10"]},
-          {no:"9303",t:["05:00","05:03","05:08","05:13","05:17","05:19","05:21","05:23","05:26","05:31","05:33","05:37","05:40","05:42","05:45","05:50"]},
-          {no:"9305",t:["05:20","05:23","05:28","05:33","05:37","05:39","05:41","05:43","05:46","05:51","05:53","05:57","06:00","06:02","06:05","06:10"]},
-          {no:"9307",t:["05:50","05:53","05:58","06:03","06:07","06:09","06:11","06:13","06:16","06:21","06:23","06:27","06:30","06:32","06:35","06:38"]},
-          {no:"9309",t:["06:15","06:18","06:23","06:28","06:32","06:34","06:36","06:38","06:41","06:46","06:48","06:52","06:55","06:57","07:00","07:05"]},
-          {no:"9311",t:["07:15","07:18","07:23","07:28","07:32","07:34","07:36","07:38","07:41","07:46","07:48","07:52","07:55","07:57","08:00","08:05"]},
-          {no:"9313",t:["07:50","07:53","07:58","08:03","08:07","08:09","08:11","08:13","08:16","08:21","08:23","08:27","08:30","08:32","08:35","08:40"]},
-          {no:"9315",t:["09:15","09:18","09:23","09:28","09:32","09:34","09:36","09:38","09:41","09:46","09:48","09:52","09:55","09:57","10:00","10:05"]},
-          {no:"9317",t:["10:15","10:18","10:23","10:28","10:32","10:34","10:36","10:38","10:41","10:46","10:48","10:52","10:55","10:57","11:00","11:05"]},
-          {no:"9319",t:["11:15","11:18","11:23","11:28","11:32","11:34","11:36","11:38","11:41","11:46","11:48","11:52","11:55","11:57","12:00","12:05"]},
-          {no:"9321",t:["12:15","12:18","12:23","12:28","12:32","12:34","12:36","12:38","12:41","12:46","12:48","12:52","12:55","12:57","13:00","13:05"]},
-          {no:"9323",t:["13:15","13:18","13:23","13:28","13:32","13:34","13:36","13:38","13:41","13:46","13:48","13:52","13:55","13:57","14:00","14:05"]},
-          {no:"9325",t:["14:15","14:18","14:23","14:28","14:32","14:34","14:36","14:38","14:41","14:46","14:48","14:52","14:55","14:57","15:00","15:05"]},
-          {no:"9327",t:["15:15","15:18","15:23","15:28","15:32","15:34","15:36","15:38","15:41","15:46","15:48","15:52","15:55","15:57","16:00","16:05"]},
-          {no:"9329",t:["16:15","16:18","16:23","16:28","16:32","16:34","16:36","16:38","16:41","16:46","16:48","16:52","16:55","16:57","17:00","17:05"]},
-          {no:"9331",t:["18:35","18:38","18:43","18:48","18:52","18:56","18:56","18:58","19:01","19:06","19:08","19:12","19:15","19:17","19:20","19:25"]}
-        ]
-      },
-      outbound: {
-        stations: ["Johannesburg","Braamfontein","Mayfair","Grosvenor","Langlaagte","Croesus","Longdale","New Canada","Mzimhlope","Phomolong","Phefeni","Dube","Ikwezi","Inhlazane","Merafe","Naledi"],
-        trains: [
-          {no:"9300",t:["06:50","06:54","06:58","07:00","07:03","07:06","07:08","07:13","07:16","07:19","07:21","07:23","07:27","07:31","07:36","07:40"]},
-          {no:"9302",t:["08:15","08:19","08:23","08:25","08:28","08:31","08:33","08:38","08:41","08:44","08:46","08:48","08:52","08:56","09:01","09:05"]},
-          {no:"9304",t:["08:50","08:54","08:58","09:00","09:03","09:06","09:08","09:13","09:16","09:19","09:21","09:23","09:27","09:31","09:36","09:40"]},
-          {no:"9306",t:["10:15","10:19","10:23","10:25","10:28","10:31","10:33","10:38","10:41","10:44","10:46","10:48","10:52","10:56","11:01","11:05"]},
-          {no:"9308",t:["11:15","11:19","11:23","11:25","11:28","11:31","11:33","11:38","11:41","11:44","11:46","11:48","11:52","11:56","12:01","12:05"]},
-          {no:"9310",t:["12:15","12:19","12:23","12:25","12:28","12:31","12:33","12:38","12:41","12:44","12:46","12:48","12:52","12:56","13:01","13:05"]},
-          {no:"9312",t:["13:15","13:19","13:23","13:25","13:28","13:31","13:33","13:38","13:41","13:44","13:46","13:48","13:52","13:56","14:01","14:05"]},
-          {no:"931
+</script>
+</body>
+</html>
